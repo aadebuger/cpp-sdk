@@ -36,10 +36,10 @@ find_package( Boost 1.54.0
 
 find_package( OpenSSL )
 find_package( Threads )
-find_package( cppnetlib 0.11.0 REQUIRED )
+#find_package( cppnetlib 0.11.0 REQUIRED )
 
-set(CPPNETLIB_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/include)
-set(CPPNETLIB_LIBRARIES ${CMAKE_INSTALL_PREFIX}/lib/libcppnetlib-client-connections.a;${CMAKE_INSTALL_PREFIX}/lib/libcppnetlib-server-parsers.a;${CMAKE_INSTALL_PREFIX}/lib/libcppnetlib-uri.a)
+#set(CPPNETLIB_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/include)
+#set(CPPNETLIB_LIBRARIES ${CMAKE_INSTALL_PREFIX}/lib/libcppnetlib-client-connections.a;${CMAKE_INSTALL_PREFIX}/lib/libcppnetlib-server-parsers.a;${CMAKE_INSTALL_PREFIX}/lib/libcppnetlib-uri.a)
 
 set(JSONCPP_LIBRARIES ${CMAKE_INSTALL_PREFIX}/lib/libjsoncpp.a)
 
@@ -63,7 +63,10 @@ if (Boost_FOUND)
   endif()
 
   # AVOSCloud library
+  add_subdirectory( lib/uri )
+
   add_subdirectory(src)
+ include_directories( lib/uri/include )
 
   # AVOSCloud headers
   install(DIRECTORY include DESTINATION ${CMAKE_BINARY_DIR})
