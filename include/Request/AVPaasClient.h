@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <mutex>
-#include <boost/network/protocol/http/client.hpp>
+//#include <boost/network/protocol/http/client.hpp>
 #include "Utils/AVPlatformMacros.h"
 #include "Utils/AVStringUtils.h"
 #include "AVConstants.h"
@@ -24,11 +24,21 @@
 #include "User/AVUser.h"
 #include "ACL/AVACL.h"
 
+#include "network/uri.hpp"
+//namespace uri = network::uri;
+#include "CurlClient.hpp"
 NS_AV_BEGIN
 
-namespace network = boost::network;
-namespace http = boost::network::http;
-namespace uri = boost::network::uri;
+
+
+
+//namespace network = boost::network;
+//namespace http = boost::network::http;
+//namespace uri = boost::network::uri;
+
+//namespace network = CurlClient::network;
+namespace http = CurlClient::http;
+
 
 class AVPaasClient {
 public:
