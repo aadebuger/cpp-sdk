@@ -10,10 +10,10 @@
 using namespace std;
 using namespace avoscloud;
 
-#error replace ${appId} and ${appKey} with real appId and appKey
+//#error replace szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz and RkW3UjoK2br9q15ejFsPJFCN with real appId and appKey
 
 BOOST_AUTO_TEST_CASE(AVQuery_FindObjects_Test) {
-  AVOSCloud::setApplicationId("${appId}", "${appKey}");
+  AVOSCloud::setApplicationId("szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz", "RkW3UjoK2br9q15ejFsPJFCN");
   AVQuery *query = AVQuery::queryWithClassName("Student");
   query->whereKeyEqualTo("age", 27);
   query->limit = 10;
@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(AVQuery_FindObjects_Test) {
 }
 
 BOOST_AUTO_TEST_CASE(AVQuery_CountObjects_Test) {
-  AVOSCloud::setApplicationId("${appId}", "${appKey}");
+  AVOSCloud::setApplicationId("szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz", "RkW3UjoK2br9q15ejFsPJFCN");
   AVQuery *query = AVQuery::queryWithClassName("Student");
   query->whereKeyEqualTo("age", 27);
   query->limit = 10;
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(AVQuery_CountObjects_Test) {
 }
 
 BOOST_AUTO_TEST_CASE(AVQuery_OrSubQueries_Test) {
-  AVOSCloud::setApplicationId("${appId}", "${appKey}");
+  AVOSCloud::setApplicationId("szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz", "RkW3UjoK2br9q15ejFsPJFCN");
 
   AVQuery *query1 = AVQuery::queryWithClassName("Student");
   query1->whereKeyEqualTo("age", 27);
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(AVQuery_OrSubQueries_Test) {
 }
 
 BOOST_AUTO_TEST_CASE(AVQuery_AndSubQueries_Test) {
-  AVOSCloud::setApplicationId("${appId}", "${appKey}");
+  AVOSCloud::setApplicationId("szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz", "RkW3UjoK2br9q15ejFsPJFCN");
 
   AVQuery *query1 = AVQuery::queryWithClassName("Student");
   query1->whereKeyEqualTo("age", 27);

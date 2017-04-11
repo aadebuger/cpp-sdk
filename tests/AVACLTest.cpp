@@ -9,7 +9,7 @@
 using namespace std;
 using namespace avoscloud;
 
-#error replace ${appId} and ${appKey} with real appId and appKey
+//error replace ${appId} and ${appKey} with real appId and appKey
 
 BOOST_AUTO_TEST_CASE(AVACL_SetReadAndWriteAccess_Test) {
   AVOSCloud::setApplicationId("${appId}", "${appKey}");

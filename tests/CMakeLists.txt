@@ -22,7 +22,8 @@ if (Boost_FOUND)
 
     add_executable(AVOSCloud-${test} ${test}.cpp)
     add_dependencies(AVOSCloud-${test} avoscloud)
-    target_link_libraries(AVOSCloud-${test} ${Boost_LIBRARIES} avoscloud)
+    link_directories( /usr/local/lib )
+    target_link_libraries(AVOSCloud-${test} ${Boost_LIBRARIES} avoscloud network-uri curlcpp)
 
     if (${CMAKE_CXX_COMPILER_ID} MATCHES GNU AND ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
       target_link_libraries(AVOSCloud-${test} ws2_32 wsock32)
