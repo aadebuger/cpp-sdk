@@ -63,13 +63,18 @@ if (Boost_FOUND)
   endif()
 
   # AVOSCloud library
-  add_subdirectory( lib/uri )
+  #add_subdirectory( lib/uri )
 
-  add_subdirectory(src)
+ ADD_SUBDIRECTORY(ext/curlcpp)
+ include_directories(ext/curlcpp/include)
+
  include_directories( lib/uri/include )
+ include_directories( ext/CurlClient/include )
+ add_subdirectory(src)
 
   # AVOSCloud headers
   install(DIRECTORY include DESTINATION ${CMAKE_BINARY_DIR})
+
 
   # cpp test
   if(BUILD_CppTests)
