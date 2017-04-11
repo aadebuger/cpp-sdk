@@ -17,7 +17,7 @@
 #include <thread>
 #include <exception>
 #include <boost/log/trivial.hpp>
-
+#include <iostream>
 #define kAVDefaultNetworkTimeoutInterval 10.0
 
 NS_AV_BEGIN
@@ -137,37 +137,45 @@ void AVPaasClient::updateBatchMethod(std::string const & method,
 http::client::request AVPaasClient::createRequest(std::string const & path,
                                                   map const & parameters,
                                                   bool isQuery) {
-  uri::uri base_uri(StringUtils::string_format("%s/%s/%s",
+  network::uri base_uri(StringUtils::string_format("%s/%s/%s",
                                                this->baseURL,
                                                this->apiVersion,
                                                path));
-  uri::uri request_uri;
-  request_uri << base_uri;
+  network::uri request_uri(base_uri);
+//  request_uri << base_uri;
+//    request_uri << base_uri;
 
   if (isQuery) {
+      network::uri_builder urib(request_uri);
+      
     for (auto it = parameters.begin(); it != parameters.end(); ++it) {
       std::string key = it.key().asString();
       std::string value = (*it).asString();
-      request_uri << uri::query(uri::encoded(key), uri::encoded(value));
+     //   request_uri << network::uri::query(uri::encoded(key), network::uri::encoded(value));
+        urib.append_query_key_value_pair(key, value);
     }
+      request_uri = urib.uri();
   }
 
-  http::client::request request(request_uri);
+  http::client::request request(request_uri.string());
 
   for (auto it = _headerMap.begin(); it != _headerMap.end(); ++it) {
     std::string key = it->first;
     std::string value = it->second;
-    request << network::header(key, value);
+  //  request << network::header(key, value);
+      request.addHeader( key,value);
   }
 
   return request;
 }
 
-void AVPaasClient::processResponse(http::client::response const & response,
+void AVPaasClient::processResponse(http::client::response const & response1,
                                    AVIdResultCallback callback) {
   Json::Value result;
   Json::Reader reader;
-  bool parsingSuccessful = reader.parse(response.body().c_str(), result);
+    std::string body = response1.body();
+    
+  bool parsingSuccessful = reader.parse(response1.body().c_str(), result);
 
   if (parsingSuccessful) {
     AVError error = AVErrorUtils::errorFromJSON(result);
@@ -249,12 +257,16 @@ void AVPaasClient::uploadFileToQiniuWithBodyAndCallback(std::string const & body
                                                         AVBooleanResultCallback callback) {
   try {
     http::client client;
-    uri::uri request_uri(QiniuServerPath);
+    network::uri request_uri(QiniuServerPath);
 
-    http::client::request request(request_uri);
-    request << network::header("Content-Type",
-                               "multipart/form-data; boundary=28e84231563f43b08b1cc55659e9b3ac");
+    http::client::request request(request_uri.string());
+//    request << network::header("Content-Type",
+     //                          "multipart/form-data; boundary=28e84231563f43b08b1cc55659e9b3ac");
 
+      request.addHeader("Content-Type",
+                                 "multipart/form-data; boundary=28e84231563f43b08b1cc55659e9b3ac");
+
+      
     http::client::response response = client.post(request, body);
 
     std::cout << response.body() << std::endl;
@@ -277,9 +289,9 @@ void AVPaasClient::fetchFileDataIntoPathWithUrl(std::string const & path,
   if (url.length() > 0) {
     try {
       http::client client;
-      uri::uri request_uri(url);
+      network::uri request_uri(url);
 
-      http::client::request request(request_uri);
+      http::client::request request(request_uri.string());
       http::client::response response = client.get(request);
 
       std::ofstream ofs(path);
