@@ -69,7 +69,10 @@ if (Boost_FOUND)
  include_directories(ext/curlcpp/include)
 
  include_directories( lib/uri/include )
+ include_directories( lib/jsoncpp/include )
+ 
  include_directories( ext/CurlClient/include )
+
  add_subdirectory(src)
 
   # AVOSCloud headers
