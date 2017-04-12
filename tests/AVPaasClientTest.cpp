@@ -7,13 +7,13 @@
 using namespace std;
 using namespace avoscloud;
 
-#error replace ${appId} and ${appKey} with real appId and appKey
+//#error replace ${appId} and ${appKey} with real appId and appKey
 
 BOOST_AUTO_TEST_CASE(AVPaasClientGetTest) {
   AVPaasClient *client = AVPaasClient::sharedInstance();
 
-  client->applicationId = "${appId}";
-  client->clientKey = "${appKey}";
+  client->applicationId = "szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz";
+  client->clientKey = "RkW3UjoK2br9q15ejFsPJFCN";
 
   Json::Value parameters;
   client->getObject("classes/Post/536b5fbee4b098d841dc9854", parameters, [&](Json::Value const & root, AVError const & error){
@@ -29,8 +29,8 @@ BOOST_AUTO_TEST_CASE(AVPaasClientGetTest) {
 BOOST_AUTO_TEST_CASE(AVPaasClientPostTest) {
   AVPaasClient *client = AVPaasClient::sharedInstance();
 
-  client->applicationId = "${appId}";
-  client->clientKey = "${appKey}";
+  client->applicationId = "szoGzmrv3vCog9IaAlMwvPdu-gzGzoHsz";
+  client->clientKey = "RkW3UjoK2br9q15ejFsPJFCN";
 
   Json::Value parameters;
   parameters["name"] = "debugger87";
